@@ -12,7 +12,10 @@ public class Elf : Character
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHP = 7;
+        HP = maxHP;
+        atk = 2;
+        mov = 4;
     }
 
     // Update is called once per frame
@@ -20,14 +23,5 @@ public class Elf : Character
     {
         
     }
-    public override void moveUnit()
-    {
-        timesMoved = 0;
-        base.moveUnit();
-    }
-
-    public override void doAI()
-    {
-        base.doAI();
-    }
+ 
 }

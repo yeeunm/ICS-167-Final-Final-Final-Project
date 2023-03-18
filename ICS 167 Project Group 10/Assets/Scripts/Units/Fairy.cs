@@ -12,22 +12,16 @@ public class Fairy : Character
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHP = 6;
+        HP = maxHP;
+        atk = 2;
+        mov = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public override void moveUnit()
-    {
-        timesMoved = 0;
-        base.moveUnit();
-    }
 
-    public override void doAI()
-    {
-        base.doAI();
     }
 }
+    

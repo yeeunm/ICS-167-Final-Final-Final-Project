@@ -18,6 +18,9 @@ public class GameStateManager : MonoBehaviour
     private Player pl2 { get; set; } //player 2. May be a real player or an AI depending on Menu.isSingle value.
     [SerializeField]
     public static bool isPl1Turn { get; set; } //tells if it's player 1's turn
+    [SerializeField]
+    public static bool isP2AI { get; set; } //variable that tells if Player 2 is AI
+
 
     //list of unit prefab objects for player 1 and player2.
     //Player 1 - unitPrefabs[0-4], Player 2 - unitPrefabs[5-9]
@@ -34,6 +37,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private GameObject[] unitList { get; set; }
 
+    //list of tile objects. The index of the nested array corresponds to the bottom left location of the tile.
+    private GameObject[,] tileList { get; set; }
+
     private static GameStateManager _instance;
 
 
@@ -46,7 +52,7 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        adjustUnitLayer();
     }
 
     private void initializeGame()
@@ -118,6 +124,7 @@ public class GameStateManager : MonoBehaviour
             {
                 if( unitList[i] != null)
                 {
+                    unitList[i].GetComponent<Character>().act();
                     unitList[i].GetComponent<Character>().isActive = true;
                 }
             }
@@ -129,7 +136,7 @@ public class GameStateManager : MonoBehaviour
             {
                 for (int i = 5; i < unitList.Length; i++)
                 {
-                    unitList[i].GetComponent<Character>().moveUnit();
+                    unitList[i].GetComponent<Character>().act();
 
                     //Once AI work is done, it automatically switches back to Player 1's turn.
                     isPl1Turn = !isPl1Turn;
@@ -137,12 +144,31 @@ public class GameStateManager : MonoBehaviour
             }
             else
             {
-
+                for (int i = 0; i < pl2.team.Length; i++)
+                {
+                    if (unitList[i + 5] != null)
+                    {
+                        unitList[i + 5].GetComponent<Character>().isActive = true;
+                    }
+                }
             }
             
 
             
         }
+    }
+
+    public void adjustUnitLayer()
+    {
+        for( int i = 0; i < unitList.Length; i++)
+        {
+            unitList[i].GetComponent<SpriteRenderer>().sortingOrder = 20 - (int)unitLoc[i].y;
+        }
+    }
+
+    public void initializeTiles()
+    {
+
     }
 
 }

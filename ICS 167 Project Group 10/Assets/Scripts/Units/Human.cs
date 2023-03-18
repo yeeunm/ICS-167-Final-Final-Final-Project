@@ -9,25 +9,23 @@ using UnityEngine;
  */
 public class Human : Character
 {
+    public bool isCursorclicked;
+    public Vector3 currentLoc;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHP = 10;
+        HP = maxHP;
+        atk = 1;
+        mov = 3;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public override void moveUnit()
-    {
-        timesMoved = 0;
-        base.moveUnit();
     }
 
-    public override void doAI()
-    {
-        base.doAI();
-    }
 }
