@@ -40,7 +40,8 @@ public class GameStateManager : MonoBehaviour
     //list of tile objects. The index of the nested array corresponds to the bottom left location of the tile.
     private GameObject[,] tileList { get; set; }
 
-    private int timesMoved;
+    private GameObject winScreen;
+
     private static GameStateManager _instance;
 
 
@@ -48,7 +49,6 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         initializeGame();
-        timesMoved = 0;
         
     }
 
@@ -56,6 +56,8 @@ public class GameStateManager : MonoBehaviour
     void Update()
     {
         adjustUnitLayer();
+        announceWinner();
+        
     }
 
     private void initializeGame()
@@ -67,13 +69,16 @@ public class GameStateManager : MonoBehaviour
 
         //Assign Vector values into unitLoc array. 
         //Refer to unitLoc array declaration above for index clarification.
-        for( int i = 0; i < unitList.Length; i++)
-        {
-            if (i < 5)
-                unitLoc[i] = new Vector3((int)8.0f + i, 5.0f, 1.0f);
-            else
-                unitLoc[i] = new Vector3((int)13.0f - i, 18.0f, 1.0f);
-        }
+        unitLoc[0] = new Vector3(6, 3);
+        unitLoc[1] = new Vector3(8, 1);
+        unitLoc[2] = new Vector3(4, 6);
+        unitLoc[3] = new Vector3(10, 3);
+        unitLoc[4] = new Vector3(13, 3);
+        unitLoc[5] = new Vector3(7, 18);
+        unitLoc[6] = new Vector3(3, 18);
+        unitLoc[7] = new Vector3(2, 14);
+        unitLoc[8] = new Vector3(5, 17);
+        unitLoc[9] = new Vector3(11, 18);
 
         if (_instance == null)
         {
@@ -88,16 +93,16 @@ public class GameStateManager : MonoBehaviour
         }
 
         //Create new Player instance for Player 1
-        pl1 = new Player(false, unitPrefabs[0], unitPrefabs[1], unitPrefabs[2], unitPrefabs[3], unitPrefabs[4]);
+        pl1 = new Player(true, false, unitPrefabs[0], unitPrefabs[1], unitPrefabs[2], unitPrefabs[3], unitPrefabs[4]);
 
         //If single player, Player 2 is AI.
         if (Menu.isSingle)
         {
-            pl2 = new Player(true, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
+            pl2 = new Player(false, true, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
         }
         else//If it's not single player mode, Player 2 is a person.
         {
-            pl2 = new Player(false, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
+            pl2 = new Player(false, false, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
         }
 
         //Always start from Player 1 turn
@@ -115,46 +120,124 @@ public class GameStateManager : MonoBehaviour
         
     }
 
-    public void alternateTurn()
+    private void alternateTurn()
     {
         isPl1Turn = !isPl1Turn;
         if(isPl1Turn)
         {
             for( int i = 0; i < 5; i++)
             {
-                unitList[i].GetComponent<Character>().unmoveable = false;
-                unitList[i+5].GetComponent<Character>().unmoveable = true;
+                try
+                {
+                    unitList[i].GetComponent<Character>().unmoveable = false;
+                    unitList[i + 5].GetComponent<Character>().unmoveable = true;
+                }
+                catch (MissingReferenceException)
+                {
+                    continue;
+                }
             }
         }
         else
         {
             for (int i = 0; i < 5; i++)
             {
-                unitList[i].GetComponent<Character>().unmoveable = true;
-                unitList[i + 5].GetComponent<Character>().unmoveable = false;
+                try
+                {
+                    unitList[i].GetComponent<Character>().unmoveable = true;
+                    unitList[i + 5].GetComponent<Character>().unmoveable = false;
+                }
+                catch (MissingReferenceException)
+                {
+                    continue;
+                }
+                
             }
         }
         for( int i = 0; i < 5; i++)
         {
-            unitList[i].GetComponent<Character>().timesmoved = 0;
-            unitList[i + 5].GetComponent<Character>().timesmoved = 0;
+            try
+            {
+                unitList[i].GetComponent<Character>().timesmoved = 0;
+                unitList[i + 5].GetComponent<Character>().timesmoved = 0;
+            }
+            catch (MissingReferenceException)
+            {
+                continue;
+            }
         }
         
-
+        //Enable this code to check if winning condition works properly
+        /*for( int i = 0; i < 5; i++)
+        {
+            if( unitList[i] != null)
+            {
+                Destroy(unitList[i]);
+                Debug.Log($"Unit at index {i} is dead now. Uhoh");
+                return;
+            }
+        }*/
     }
     
     
-    public void adjustUnitLayer()
+    private void adjustUnitLayer()
     {
         for( int i = 0; i < unitList.Length; i++)
         {
-            unitList[i].GetComponent<SpriteRenderer>().sortingOrder = 20 - (int)unitLoc[i].y;
+            try
+            {
+                unitList[i].GetComponent<SpriteRenderer>().sortingOrder = 20 - (int)unitLoc[i].y;
+            }
+            catch(MissingReferenceException)
+            {
+                continue;
+            }
+            
         }
     }
 
-    public void initializeTiles()
+    private Player checkWinner()
     {
+        bool unitAlive = false;
+        for( int i = 0; i < 5; i++ )
+        {
+            if (unitList[i] != null)
+                unitAlive = true;
 
+            if (unitAlive)
+                break;
+
+        }
+        if (!unitAlive)
+            return pl2;
+        else
+           unitAlive = false;
+        for (int i = 5; i < 10; i++)
+        {
+            if (unitList[i] != null)
+                unitAlive = true;
+
+            if (unitAlive)
+                return null;
+        }
+
+        return pl1;
+
+    }
+
+    private void announceWinner()
+    {
+        Player winner = checkWinner();
+        if (winner != null)
+        {
+            showWinScreen();
+        }
+    }
+
+    public void showWinScreen()
+    {
+        winScreen.SetActive(true);
+        Time.timeScale = 1f;
     }
 
 }
