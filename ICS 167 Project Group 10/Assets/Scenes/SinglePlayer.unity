@@ -1046,6 +1046,8 @@ MonoBehaviour:
   smoothSpeed: 0.125
   defaultSprite: {fileID: 21300000, guid: f719084c4c1114644bb3b50dc3abd782, type: 3}
   selectedSprite: {fileID: 21300000, guid: 02c66c420ca8ab3498d59f7c62e3781c, type: 3}
+  xEdgeMin: 0
+  xEdgeMax: 19
 --- !u!212 &476049823
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3209,8 +3211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec55befb9dbf4e4aaa45fd9f1bb396c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yEdgeMin: 0
-  yEdgeMax: 0
   cameraSpeed: 1
   smoothSpeed: 0.125
   border: 1

@@ -85,7 +85,7 @@ public abstract class Character : MonoBehaviour
         {
             unmoveable = true;
         }
-        if (Input.GetKey(KeyCode.W) && !isMoving && currentLoc.y != 13)
+        if (Input.GetKey(KeyCode.W) && !isMoving && currentLoc.y != 19)
         {
             timesmoved += 1;
             StartCoroutine(MovePlayer(Vector3.up));
@@ -100,11 +100,13 @@ public abstract class Character : MonoBehaviour
             timesmoved += 1;
             StartCoroutine(MovePlayer(Vector3.down));
         }
-        if (Input.GetKey(KeyCode.D) && !isMoving && currentLoc.x != 13)
+        if (Input.GetKey(KeyCode.D) && !isMoving && currentLoc.x != 19)
         {
             timesmoved += 1;
             StartCoroutine(MovePlayer(Vector3.right));
         }
+
+        Debug.Log($"TimesMoved: {timesmoved}");
     }
 
     private IEnumerator MovePlayer(Vector3 direction)

@@ -23,7 +23,6 @@ public class Human : Character
         atk = 1;
         mov = 3;
 
-
     }
 
     // Update is called once per frame

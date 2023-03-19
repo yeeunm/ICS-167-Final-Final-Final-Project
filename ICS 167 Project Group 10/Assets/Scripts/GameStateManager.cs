@@ -49,7 +49,6 @@ public class GameStateManager : MonoBehaviour
     {
         initializeGame();
         timesMoved = 0;
-
         
     }
 
@@ -61,8 +60,6 @@ public class GameStateManager : MonoBehaviour
 
     private void initializeGame()
     {
-
-        
         //both unitList and unitLoc story 10 elements.
         unitList = new GameObject[10];
         unitLoc = new Vector3[10];
@@ -137,35 +134,16 @@ public class GameStateManager : MonoBehaviour
                 unitList[i + 5].GetComponent<Character>().unmoveable = false;
             }
         }
+        for( int i = 0; i < 5; i++)
+        {
+            unitList[i].GetComponent<Character>().timesmoved = 0;
+            unitList[i + 5].GetComponent<Character>().timesmoved = 0;
+        }
+        
 
     }
     
-    private void moveUnit()
-    {
-        if (timesMoved <= 3)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                unitList[2].transform.Translate(Vector3.up);
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                unitList[2].transform.Translate(Vector3.left);
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                unitList[2].transform.Translate(Vector3.down);
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                unitList[2].transform.Translate(Vector3.right);
-                timesMoved++;
-            }
-        }
-    }
+    
     public void adjustUnitLayer()
     {
         for( int i = 0; i < unitList.Length; i++)
