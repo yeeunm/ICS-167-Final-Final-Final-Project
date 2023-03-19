@@ -40,6 +40,7 @@ public class GameStateManager : MonoBehaviour
     //list of tile objects. The index of the nested array corresponds to the bottom left location of the tile.
     private GameObject[,] tileList { get; set; }
 
+    private int timesMoved;
     private static GameStateManager _instance;
 
 
@@ -47,6 +48,9 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         initializeGame();
+        timesMoved = 0;
+
+        
     }
 
     // Update is called once per frame
@@ -57,8 +61,8 @@ public class GameStateManager : MonoBehaviour
 
     private void initializeGame()
     {
-        Menu.isSingle = true; //placeholder. modify this later.
 
+        
         //both unitList and unitLoc story 10 elements.
         unitList = new GameObject[10];
         unitLoc = new Vector3[10];
@@ -109,55 +113,59 @@ public class GameStateManager : MonoBehaviour
             DontDestroyOnLoad(pl2.team[i]);
             unitList[i] = Instantiate(pl1.team[i], unitLoc[i], Quaternion.identity);
             unitList[i + 5] = Instantiate(pl2.team[i], unitLoc[i + 5], Quaternion.identity);
+            unitList[i + 5].GetComponent<Character>().unmoveable = true;
         }
         
     }
 
     public void alternateTurn()
     {
-        //bool variable alternates when the End Turn button is clicked.
         isPl1Turn = !isPl1Turn;
-
-        if( isPl1Turn )
+        if(isPl1Turn)
         {
-            for ( int i = 0; i < pl1.team.Length; i++)
+            for( int i = 0; i < 5; i++)
             {
-                if( unitList[i] != null)
-                {
-                    unitList[i].GetComponent<Character>().act();
-                    unitList[i].GetComponent<Character>().isActive = true;
-                }
+                unitList[i].GetComponent<Character>().unmoveable = false;
+                unitList[i+5].GetComponent<Character>().unmoveable = true;
             }
         }
-        //if it's Player 2's turn and Player 2 is AI, it does AI work depending on the type of Character.
         else
         {
-            if( Menu.isSingle )
+            for (int i = 0; i < 5; i++)
             {
-                for (int i = 5; i < unitList.Length; i++)
-                {
-                    unitList[i].GetComponent<Character>().act();
-
-                    //Once AI work is done, it automatically switches back to Player 1's turn.
-                    isPl1Turn = !isPl1Turn;
-                }
+                unitList[i].GetComponent<Character>().unmoveable = true;
+                unitList[i + 5].GetComponent<Character>().unmoveable = false;
             }
-            else
+        }
+
+    }
+    
+    private void moveUnit()
+    {
+        if (timesMoved <= 3)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                for (int i = 0; i < pl2.team.Length; i++)
-                {
-                    if (unitList[i + 5] != null)
-                    {
-                        unitList[i + 5].GetComponent<Character>().isActive = true;
-                    }
-                }
+                unitList[2].transform.Translate(Vector3.up);
+                timesMoved++;
             }
-            
-
-            
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                unitList[2].transform.Translate(Vector3.left);
+                timesMoved++;
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                unitList[2].transform.Translate(Vector3.down);
+                timesMoved++;
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                unitList[2].transform.Translate(Vector3.right);
+                timesMoved++;
+            }
         }
     }
-
     public void adjustUnitLayer()
     {
         for( int i = 0; i < unitList.Length; i++)

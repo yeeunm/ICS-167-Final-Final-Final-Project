@@ -1086,7 +1086,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: f719084c4c1114644bb3b50dc3abd782, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefabs:
-  - {fileID: 2172939676325231565, guid: adae47fc85ab4f641baaeb32c001ab65, type: 3}
+  - {fileID: 4993826117603826913, guid: 997c4c6b24bfa854e9f1f1019fde9144, type: 3}
   - {fileID: 7641013478201037701, guid: a496fce44aa2f0947beebd9cb06f10de, type: 3}
   - {fileID: 6568250197882233395, guid: 5efed1e6d82776d4ca28c6d2babeb940, type: 3}
   - {fileID: 2779271107798469044, guid: 10c684b18527e33498fce7dd8baf4d83, type: 3}

@@ -98,4 +98,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  timesMoved: 0
+  Cursorclicked: 0
+  possiblemovement: 4
+  timesmoved: 0
+  unitmousePos: {x: 0, y: 0, z: 0}
+  unitappliedPosition: {x: 0, y: 0, z: 0}
+  unmoveable: 0
+  posa: {x: 0, y: 0, z: 0}
+  currentLoc: {x: 0, y: 0, z: 0}
+  cursorOnObj: 0
+  isClicked: 0
