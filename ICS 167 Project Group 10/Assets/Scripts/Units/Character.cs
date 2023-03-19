@@ -30,6 +30,8 @@ public abstract class Character : MonoBehaviour
     public Vector3 unitmousePos;
     public Vector3 unitappliedPosition;
     public bool unmoveable;
+    protected Vector3 posa;
+    protected bool cursorOnObj = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,39 +45,11 @@ public abstract class Character : MonoBehaviour
     void Update()
     {
     }
-
-    public virtual void act()
-    {   if (timesMoved <= mov)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                this.transform.Translate(Vector3.up);
-                Debug.Log("You don't see this, don't you?");
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                this.transform.Translate(Vector3.left);
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                this.transform.Translate(Vector3.down);
-                timesMoved++;
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                this.transform.Translate(Vector3.right);
-                timesMoved++;
-            }
-        }
-    }
     
 
     public virtual void doAI()
     {
-        this.transform.Translate(Vector3.down);
-        isActive = false;
+        unmoveable = true;
     }
 
     public void updateUnitPosition()  //updates the position of the characters based on the keys the playr is pressing
@@ -130,6 +104,32 @@ public abstract class Character : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+    }
+
+    protected void mouseInteraction()
+    {
+        if (unmoveable == false)
+        {
+            unitmousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //Applied position variable used to store the coordinates. Round down to nearest whole number.
+            unitappliedPosition = new Vector3((int)Math.Floor(unitmousePos.x), (int)Math.Floor(unitmousePos.y));
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (unitappliedPosition.x == posa.x && unitappliedPosition.y == posa.y)
+                {
+                    cursorOnObj = true;
+                }
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                cursorOnObj = false;
+            }
+            if (cursorOnObj)
+            {
+                updateUnitPosition();
+            }
+            posa = transform.position;
+        }
     }
 
 }

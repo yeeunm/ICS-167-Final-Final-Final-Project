@@ -14,9 +14,14 @@ public class Player
     private bool isAI { get; set; }
     public GameObject[] team { get; set; }
     private bool[] deathList;
+    public string name { get; set; }
 
-    public Player(bool isAI, GameObject u1, GameObject u2, GameObject u3, GameObject u4, GameObject u5)
+    public Player(bool isP1, bool isAI, GameObject u1, GameObject u2, GameObject u3, GameObject u4, GameObject u5)
     {
+        if (isP1)
+            name = "Player 1";
+        else
+            name = "Player 2";
         this.isAI = isAI;
         team = new GameObject[5];
         team[0] = u1;
