@@ -20,9 +20,10 @@ public class Cursor : MonoBehaviour
     [SerializeField]
     private Sprite selectedSprite; // cursor sprite when clicked
     private SpriteRenderer sr; // reference variable to SpriteRenderer
-
+    //variables to limit the cursor movement. If the mouse clicks beyond the map, the cursor will not shrink.
+    [SerializeField]
+    private float xEdgeMin, xEdgeMax;
     private bool canMove { get; set; }
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@private Tile[,] tileGrid {get; set;}
     private bool isOnCharacter { get; set; }
 
     // Start is called before the first frame update
@@ -47,11 +48,17 @@ public class Cursor : MonoBehaviour
         //Applied position variable used to store the coordinates. Round down to nearest whole number.
         appliedPosition = new Vector3((int)Math.Floor(mousePos.x), (int)Math.Floor(mousePos.y));
 
+        if (appliedPosition.x > xEdgeMax)
+            appliedPosition.x = xEdgeMax;
+        if (appliedPosition.x < xEdgeMin)
+            appliedPosition.x = xEdgeMin;
+
         //As long as the mouse is not clicked, the cursor will follow the current mouse position.
         if (canMove)
             this.transform.position = Vector3.SmoothDamp(transform.position, appliedPosition, ref velocity, smoothSpeed);
 
-        manageMouseClick();
+        if( mousePos.x <= xEdgeMax && mousePos.x >= xEdgeMin)
+            manageMouseClick();
     }
 
     private void manageMouseClick()

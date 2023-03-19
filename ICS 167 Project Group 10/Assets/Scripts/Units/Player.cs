@@ -25,6 +25,14 @@ public class Player
         team[3] = u4;
         team[4] = u5;
 
+        if (isAI)
+        {
+            for( int i = 0; i < team.Length; i++)
+            {
+                team[i].GetComponent<Character>().isAI = true;
+            }
+        }
+
         deathList = new bool[5];
         for (int i = 0; i < deathList.Length; i++)
             deathList[i] = true;

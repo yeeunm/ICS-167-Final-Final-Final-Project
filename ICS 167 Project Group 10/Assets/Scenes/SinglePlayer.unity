@@ -1928,6 +1928,8 @@ MonoBehaviour:
   smoothSpeed: 0.125
   defaultSprite: {fileID: 21300000, guid: f719084c4c1114644bb3b50dc3abd782, type: 3}
   selectedSprite: {fileID: 21300000, guid: 02c66c420ca8ab3498d59f7c62e3781c, type: 3}
+  xEdgeMin: 0
+  xEdgeMax: 19
 --- !u!212 &476049823
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1968,7 +1970,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: f719084c4c1114644bb3b50dc3abd782, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4018,7 +4020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefabs:
-  - {fileID: 2172939676325231565, guid: adae47fc85ab4f641baaeb32c001ab65, type: 3}
+  - {fileID: 4993826117603826913, guid: 997c4c6b24bfa854e9f1f1019fde9144, type: 3}
   - {fileID: 7641013478201037701, guid: a496fce44aa2f0947beebd9cb06f10de, type: 3}
   - {fileID: 6568250197882233395, guid: 5efed1e6d82776d4ca28c6d2babeb940, type: 3}
   - {fileID: 2779271107798469044, guid: 10c684b18527e33498fce7dd8baf4d83, type: 3}
@@ -5853,8 +5855,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec55befb9dbf4e4aaa45fd9f1bb396c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yEdgeMin: 0
-  yEdgeMax: 0
   cameraSpeed: 1
   smoothSpeed: 0.125
   border: 1

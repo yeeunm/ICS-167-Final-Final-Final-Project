@@ -12,8 +12,9 @@ public class CameraMovement : MonoBehaviour
     private static Vector3 cameraPosition;
    
     // variables to check if mouse hovers around the bottom of the map(min) and the top of the map(max)
-    [SerializeField]
-    private bool yEdgeMin, yEdgeMax;
+    public static bool yEdgeMin, yEdgeMax;
+
+    public static bool xEdgeMin, xEdgeMax;
 
     [Header("Camera Settings")]
     [SerializeField]

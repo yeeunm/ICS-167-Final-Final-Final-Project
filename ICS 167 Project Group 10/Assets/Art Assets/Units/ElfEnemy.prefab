@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1591051648688912120}
   - component: {fileID: 8804703513281874186}
   - component: {fileID: -375077738609249756}
+  - component: {fileID: -7921020300191906308}
   m_Layer: 0
   m_Name: ElfEnemy
   m_TagString: Untagged
@@ -98,4 +99,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  timesMoved: 0
+  Cursorclicked: 0
+  possiblemovement: 4
+  timesmoved: 0
+  unitmousePos: {x: 0, y: 0, z: 0}
+  unitappliedPosition: {x: 0, y: 0, z: 0}
+  unmoveable: 0
+  posa: {x: 0, y: 0, z: 0}
+  currentLoc: {x: 0, y: 0, z: 0}
+  cursorOnObj: 0
+  isClicked: 0
+--- !u!114 &-7921020300191906308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8205277140740721172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8232489973734393070, guid: 10c684b18527e33498fce7dd8baf4d83, type: 3}
+          m_TargetAssemblyTypeName: Character, Assembly-CSharp
+          m_MethodName: act
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
