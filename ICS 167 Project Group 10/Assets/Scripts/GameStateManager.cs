@@ -15,7 +15,7 @@ public class GameStateManager : MonoBehaviour
 {
 
     [SerializeField] 
-    private AudioClip m_MenuMusic;  //used for audio manager that is specifically for menu music
+    private AudioClip m_MenuMusic;  //used for audio manager that is specifically for menu music.
     //[SerializeField]
     //private AudioClip m_GameMusic;  // used for audio manager that is specifically for game music
 
