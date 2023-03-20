@@ -66,7 +66,6 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        adjustUnitLayer();
         announceWinner();
         
     }
@@ -235,23 +234,6 @@ public class GameStateManager : MonoBehaviour
                 return;
             }
         }*/
-    }
-    
-    
-    private void adjustUnitLayer()
-    {
-        for( int i = 0; i < unitList.Length; i++)
-        {
-            try
-            {
-                unitList[i].GetComponent<SpriteRenderer>().sortingOrder = 20 - (int)unitLoc[i].y;
-            }
-            catch(MissingReferenceException)
-            {
-                continue;
-            }
-            
-        }
     }
 
     private Player checkWinner()

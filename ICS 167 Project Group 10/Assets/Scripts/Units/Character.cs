@@ -180,6 +180,11 @@ public abstract class Character : MonoBehaviour
     }
 
 
+    protected void AdjustLayer()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 25 - (int)posa.y;
+    }
+
 
     protected void checkDeath()
     {
@@ -190,7 +195,6 @@ public abstract class Character : MonoBehaviour
     {
         updateToString();
         UIHandlerManager._instance.SetAndShowToolTip(chInfo);
-        Debug.Log($"IsAI? : {isAI}");
     }
 
     public void OnMouseExit()
