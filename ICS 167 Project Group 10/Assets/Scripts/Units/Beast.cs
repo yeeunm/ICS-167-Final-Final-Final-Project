@@ -25,10 +25,12 @@ public class Beast : Character
     {
         mouseInteraction();
         updateToString();
+        checkDeath();
     }
 
     public override void doAI()
     {
+        Heal();
         base.doAI();
     }
 }

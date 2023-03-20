@@ -3340,7 +3340,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: faa7554d958fd9241854ae431c6195c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4039,8 +4039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65d21971a49a67418fe422815e251e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MenuMusic: {fileID: 0}
-  m_GameMusic: {fileID: 0}
+  m_MenuMusic: {fileID: 8300000, guid: ed0c0c828c2c4ba478d82c99bc97b04c, type: 3}
   unitPrefabs:
   - {fileID: 6034206554955758032, guid: 957987b88f1c5c6429d951a07957f8b7, type: 3}
   - {fileID: 5980549010983043917, guid: efda4fc97dcc45344b23b6ddc549aa18, type: 3}

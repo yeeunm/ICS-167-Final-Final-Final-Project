@@ -56,8 +56,11 @@ public class GameStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Menu.isSingle = true;
         initializeGame();
         SoundManager.PlayMusic(_instance.m_MenuMusic);
+        
+        
     }
 
     // Update is called once per frame
@@ -107,10 +110,12 @@ public class GameStateManager : MonoBehaviour
         if (Menu.isSingle)
         {
             pl2 = new Player(false, true, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
+            
         }
         else//If it's not single player mode, Player 2 is a person.
         {
             pl2 = new Player(false, false, unitPrefabs[5], unitPrefabs[6], unitPrefabs[7], unitPrefabs[8], unitPrefabs[9]);
+            
         }
 
         //Always start from Player 1 turn
@@ -124,6 +129,9 @@ public class GameStateManager : MonoBehaviour
             unitList[i] = Instantiate(pl1.team[i], unitLoc[i], Quaternion.identity);
             unitList[i + 5] = Instantiate(pl2.team[i], unitLoc[i + 5], Quaternion.identity);
             unitList[i + 5].GetComponent<Character>().unmoveable = true;
+
+            if (Menu.isSingle)
+                unitList[i + 5].GetComponent<Character>().isAI = true;
         }
 
         //SoundManager.PlayMusic(_instance.m_GameMusic);
@@ -135,7 +143,9 @@ public class GameStateManager : MonoBehaviour
         isPl1Turn = !isPl1Turn;
         if(isPl1Turn)
         {
-            for( int i = 0; i < 5; i++)
+
+            //Player 2 units are able to move, and lock the player 1 units in place.
+            for ( int i = 0; i < 5; i++)
             {
                 try
                 {
@@ -146,24 +156,58 @@ public class GameStateManager : MonoBehaviour
                 {
                     continue;
                 }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                try
-                {
-                    unitList[i].GetComponent<Character>().unmoveable = true;
-                    unitList[i + 5].GetComponent<Character>().unmoveable = false;
-                }
-                catch (MissingReferenceException)
+                catch (NullReferenceException)
                 {
                     continue;
                 }
-                
             }
         }
+        else //Player 2 turn
+        {
+            if( Menu.isSingle) //AI move
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    try
+                    {
+                        unitList[i + 5].GetComponent<Character>().doAI();
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        continue;
+                    }
+                    catch (NullReferenceException)
+                    {
+                        continue;
+                    }
+
+                }
+            }
+            else
+            {
+                //Player 2 units are able to move, and lock the player 1 units in place.
+                for (int i = 0; i < 5; i++)
+                {
+                    try
+                    {
+                        unitList[i].GetComponent<Character>().unmoveable = true;
+                        unitList[i + 5].GetComponent<Character>().unmoveable = false;
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        continue;
+                    }
+                    catch (NullReferenceException)
+                    {
+                        continue;
+                    }
+
+                }
+            }
+            
+        }
+
+        //refresh timesmoved variable for 
         for( int i = 0; i < 5; i++)
         {
             try
@@ -172,6 +216,10 @@ public class GameStateManager : MonoBehaviour
                 unitList[i + 5].GetComponent<Character>().timesmoved = 0;
             }
             catch (MissingReferenceException)
+            {
+                continue;
+            }
+            catch (NullReferenceException)
             {
                 continue;
             }
@@ -240,15 +288,9 @@ public class GameStateManager : MonoBehaviour
         Player winner = checkWinner();
         if (winner != null)
         {
-            showWinScreen();
             Debug.Log($"Winner!: {winner.name}");
         }
     }
 
-    public void showWinScreen()
-    {
-        winScreen.SetActive(true);
-        Time.timeScale = 1f;
-    }
 
 }

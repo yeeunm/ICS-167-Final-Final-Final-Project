@@ -25,6 +25,12 @@ public class Elf : Character
     {
         mouseInteraction();
         updateToString();
+        checkDeath();
     }
- 
+
+    public override void doAI()
+    { 
+        base.doAI();
+    }
+
 }
