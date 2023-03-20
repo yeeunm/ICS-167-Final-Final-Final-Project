@@ -56,7 +56,6 @@ public class GameStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Menu.isSingle = true;
         initializeGame();
         SoundManager.PlayMusic(_instance.m_MenuMusic);
         
@@ -131,6 +130,8 @@ public class GameStateManager : MonoBehaviour
 
             if (Menu.isSingle)
                 unitList[i + 5].GetComponent<Character>().isAI = true;
+            else
+                unitList[i + 5].GetComponent<Character>().isAI = false;
         }
 
         //SoundManager.PlayMusic(_instance.m_GameMusic);
@@ -206,7 +207,7 @@ public class GameStateManager : MonoBehaviour
             
         }
 
-        //refresh timesmoved variable for 
+        //refresh timesmoved variable for all the units
         for( int i = 0; i < 5; i++)
         {
             try
@@ -223,17 +224,23 @@ public class GameStateManager : MonoBehaviour
                 continue;
             }
         }
-        
-        //Enable this code to check if winning condition works properly
-        /*for( int i = 0; i < 5; i++)
+
+        //Temporary damage system
+        for( int i = 0; i < unitList.Length; i++)
         {
-            if( unitList[i] != null)
+            try
             {
-                Destroy(unitList[i]);
-                Debug.Log($"Unit at index {i} is dead now. Uhoh");
-                return;
+                unitList[i].GetComponent<Character>().GetDamage(UnityEngine.Random.Range(0,4));
             }
-        }*/
+            catch (MissingReferenceException)
+            {
+                continue;
+            }
+            catch (NullReferenceException)
+            {
+                continue;
+            }
+        }
     }
 
     private Player checkWinner()
@@ -270,7 +277,7 @@ public class GameStateManager : MonoBehaviour
         Player winner = checkWinner();
         if (winner != null)
         {
-            Debug.Log($"Winner!: {winner.name}");
+            UIHandlerManager._instance.SetAndShowToolTip($"winner.name WINS!");
         }
     }
 
