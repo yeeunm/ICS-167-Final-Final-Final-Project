@@ -12,6 +12,10 @@ using UnityEngine.UI;
  */
 public class GameStateManager : MonoBehaviour
 {
+    [SerializeField] 
+    private AudioClip m_MenuMusic;  //used for audio manager that is specifically for menu music.
+    //[SerializeField]
+    //private AudioClip m_GameMusic;  // used for audio manager that is specifically for game music
     [SerializeField]
     private Player pl1 { get; set; } //player 1. Always a real player by default.
     [SerializeField]
