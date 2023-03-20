@@ -10,9 +10,6 @@ using UnityEngine;
  */
 public class Fairy : Character
 {
-    public Vector3 currentLoc;
-
-    public bool isClicked;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +17,14 @@ public class Fairy : Character
         HP = maxHP;
         atk = 2;
         mov = 5;
+        chInfo = $"HP: {HP} / {maxHP}\nAtk: {atk}\nMOV: {mov} / {mov}";
     }
 
     // Update is called once per frame
     void Update()
     {
         mouseInteraction();
+        updateToString();
     }
 }
     
