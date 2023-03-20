@@ -19,7 +19,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     public static bool isPl1Turn { get; set; } //tells if it's player 1's turn
     [SerializeField]
-    public static bool isP2AI { get; set; } //variable that tells if Player 2 is AI
+    public static bool isP2AI { get; set; } //variable that tells if Player 2 is AI.
 
 
     //list of unit prefab objects for player 1 and player2.
