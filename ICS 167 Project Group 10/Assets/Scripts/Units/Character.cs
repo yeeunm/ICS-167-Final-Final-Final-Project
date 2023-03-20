@@ -56,19 +56,25 @@ public abstract class Character : MonoBehaviour
         for ( int i = 0; i < mov; i++)
         {
             int temp = UnityEngine.Random.Range(0, 4);
-            if( temp == 0)
+            if (temp == 0 && currentLoc.x != 19)
             {
-                StartCoroutine(MovePlayer(new Vector3(1,0 )));
+                StartCoroutine(MovePlayer(new Vector3(1, 0)));
             }
-            else if (temp == 1)
+            else
+                temp++;
+            if (temp == 1 && currentLoc.x != 0)
             {
                 StartCoroutine(MovePlayer(new Vector3(-1, 0)));
             }
-            else if (temp == 2)
+            else
+                temp++;
+            if (temp == 2 && currentLoc.y != 19)
             {
                 StartCoroutine(MovePlayer(new Vector3(0, 1)));
             }
             else
+                temp++;
+            if (temp == 3 && currentLoc.y != 0)
             {
                 StartCoroutine(MovePlayer(new Vector3(0, -1)));
             }

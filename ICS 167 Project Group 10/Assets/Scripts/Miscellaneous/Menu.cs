@@ -15,13 +15,13 @@ public class Menu : MonoBehaviour
     public void SingleGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        isSingle = false;
+        isSingle = true;
     }
 
     public void MultiGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-        isSingle = true;
+        isSingle = false;
     }
 
     public void QuitGame()
