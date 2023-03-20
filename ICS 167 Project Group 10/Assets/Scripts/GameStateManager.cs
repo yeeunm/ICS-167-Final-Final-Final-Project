@@ -9,9 +9,17 @@ using UnityEngine.UI;
  * @Author: Asad Ellis
  *          Yeeun Min
  *          Ricardo Reyes
+ *          Samantha Purganan
  */
 public class GameStateManager : MonoBehaviour
 {
+
+    [SerializeField] 
+    private AudioClip m_MenuMusic;  //used for audio manager that is specifically for menu music
+    //[SerializeField]
+    //private AudioClip m_GameMusic;  // used for audio manager that is specifically for game music
+
+
     [SerializeField]
     private Player pl1 { get; set; } //player 1. Always a real player by default.
     [SerializeField]
@@ -48,8 +56,7 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         initializeGame();
-
-        
+        SoundManager.PlayMusic(_instance.m_MenuMusic);
     }
 
     // Update is called once per frame
@@ -117,6 +124,8 @@ public class GameStateManager : MonoBehaviour
             unitList[i + 5] = Instantiate(pl2.team[i], unitLoc[i + 5], Quaternion.identity);
             unitList[i + 5].GetComponent<Character>().unmoveable = true;
         }
+
+        //SoundManager.PlayMusic(_instance.m_GameMusic);
         
     }
 

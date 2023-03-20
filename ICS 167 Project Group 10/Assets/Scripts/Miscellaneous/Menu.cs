@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
  */
 public class Menu : MonoBehaviour
 {
-    // variable that stores value if the game is sinle player mode
+     
     public static bool isSingle { get; set; }
 
     public void SingleGame()
@@ -29,4 +29,5 @@ public class Menu : MonoBehaviour
         Debug.Log("QUIT!");
         Application.Quit();
     }
+
 }
