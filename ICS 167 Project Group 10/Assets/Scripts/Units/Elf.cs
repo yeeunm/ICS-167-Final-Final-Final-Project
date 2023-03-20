@@ -10,8 +10,6 @@ using UnityEngine;
  */
 public class Elf : Character
 {
-    public bool cursorOnObj = false;
-    public bool isClicked;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +17,14 @@ public class Elf : Character
         HP = maxHP;
         atk = 2;
         mov = 4;
+        chInfo = $"HP: {HP} / {maxHP}\nAtk: {atk}\nMOV: {mov} / {mov}";
     }
 
     // Update is called once per frame
     void Update()
     {
         mouseInteraction();
+        updateToString();
     }
  
 }

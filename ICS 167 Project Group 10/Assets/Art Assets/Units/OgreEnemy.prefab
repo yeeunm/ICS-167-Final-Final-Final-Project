@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5598183044628024143}
   - component: {fileID: 7828303090408635460}
   - component: {fileID: 7113922820790190303}
+  - component: {fileID: 1207971632425275077}
   m_Layer: 0
   m_Name: OgreEnemy
   m_TagString: Untagged
@@ -97,8 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2546482a22cad14eb90bdf402c9bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  Cursorclicked: 0
+  attacktrigger: {fileID: 1207971632425275077}
   possiblemovement: 1
   timesmoved: 0
   unitmousePos: {x: 0, y: 0, z: 0}
@@ -106,5 +106,29 @@ MonoBehaviour:
   unmoveable: 0
   posa: {x: 0, y: 0, z: 0}
   cursorOnObj: 0
-  currentLoc: {x: 0, y: 0, z: 0}
-  isClicked: 0
+--- !u!61 &1207971632425275077
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498932737986269470}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.4, y: 0.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
