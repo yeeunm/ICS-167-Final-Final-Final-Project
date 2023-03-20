@@ -10,6 +10,8 @@ using UnityEngine;
  */
 public class Human : Character
 {
+    public Vector3 currentLoc;
+    public bool isClicked;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +19,13 @@ public class Human : Character
         HP = maxHP;
         atk = 1;
         mov = 3;
-        chInfo = $"HP: {HP} / {maxHP}\nAtk: {atk}\nMOV: {mov} / {mov}";
+
     }
 
     // Update is called once per frame
     void Update()
     {
         mouseInteraction();
-        updateToString();
     }
 
 }

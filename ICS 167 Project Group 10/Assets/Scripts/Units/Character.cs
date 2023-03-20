@@ -2,38 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
 
 /**
  * Character Script
  * @Author: Asad Ellis
  *          Yeeun Min
  */
-public abstract class Character : PlayerAttack
+public abstract class Character : MonoBehaviour
 {
     public bool isAI { get; set; }
-    public int HP { get; set; } 
-    public int maxHP { get; set; }
-    public int atk { get; set; } 
+    protected int HP { get; set; } 
+    protected int maxHP { get; set; }
+    protected int atk { get; set; } 
     public int mov { get; set; }
+    public bool isActive { get; set; }
+    [SerializeField]
+    private SpriteRenderer sprite;
     public Vector3 currentLoc { get; set; }
-    public Vector3 posa;
+    [SerializeField]
+    public int timesMoved { get; set; }
     private bool isMoving;  //if our player is moving or not
     private Vector3 targetPos;
     private float timeToMove = 0.7f;
-    public int possiblemovement;
+    public bool Cursorclicked = false;
+    public int possiblemovement = 2;
     public int timesmoved = 0;
     public Vector3 unitmousePos;
     public Vector3 unitappliedPosition;
     public bool unmoveable;
-    public bool cursorOnObj = false;
-    protected string chInfo;
-    
+    protected Vector3 posa;
+    protected bool cursorOnObj = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        posa = transform.position;
         if (Menu.isSingle)
             isAI = true;
 
@@ -42,7 +44,6 @@ public abstract class Character : PlayerAttack
     // Update is called once per frame
     void Update()
     {
-        checkDeath();
     }
     
 
@@ -54,7 +55,7 @@ public abstract class Character : PlayerAttack
     public void updateUnitPosition()  //updates the position of the characters based on the keys the playr is pressing
     {
         currentLoc = transform.position;
-        if (timesmoved == mov)
+        if (timesmoved == possiblemovement)
         {
             unmoveable = true;
         }
@@ -79,10 +80,7 @@ public abstract class Character : PlayerAttack
             StartCoroutine(MovePlayer(Vector3.right));
         }
 
-        if (timesmoved == mov)
-        {
-            cursorOnObj = false;
-        }
+        Debug.Log($"TimesMoved: {timesmoved}");
     }
 
     private IEnumerator MovePlayer(Vector3 direction)
@@ -110,11 +108,6 @@ public abstract class Character : PlayerAttack
 
     protected void mouseInteraction()
     {
-        
-        if (Input.GetMouseButtonDown(1))
-        {
-            cursorOnObj = false;
-        }
         if (unmoveable == false)
         {
             unitmousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -127,42 +120,16 @@ public abstract class Character : PlayerAttack
                     cursorOnObj = true;
                 }
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                cursorOnObj = false;
+            }
             if (cursorOnObj)
             {
                 updateUnitPosition();
             }
             posa = transform.position;
-
         }
-    }
-    public void updateToString()
-    {
-        chInfo = $"HP: {HP} / {maxHP}\nAtk: {atk}\nMOV: {mov - timesmoved} / {mov}";
-    }
-    public void Attack(Character enemy)
-    {
-        enemy.HP -= atk;
-    }
-
-    public void GetDamage()
-    {
-        HP -= 1;
-    }
-
-    private void checkDeath()
-    {
-        if (HP <= 0)
-            Destroy(this);
-    }
-    public void OnMouseEnter()
-    {
-        updateToString();
-        UIHandlerManager._instance.SetAndShowToolTip(chInfo);
-    }
-
-    public void OnMouseExit()
-    {
-        UIHandlerManager._instance.HideToolTip();
     }
 
 }
