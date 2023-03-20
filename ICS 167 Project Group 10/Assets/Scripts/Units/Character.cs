@@ -16,26 +16,24 @@ public abstract class Character : MonoBehaviour
     protected int atk { get; set; } 
     public int mov { get; set; }
     public bool isActive { get; set; }
-    [SerializeField]
-    private SpriteRenderer sprite;
     public Vector3 currentLoc { get; set; }
-    [SerializeField]
-    public int timesMoved { get; set; }
+
+    protected Vector3 posa;
     private bool isMoving;  //if our player is moving or not
     private Vector3 targetPos;
     private float timeToMove = 0.7f;
-    public bool Cursorclicked = false;
     public int possiblemovement = 2;
     public int timesmoved = 0;
     public Vector3 unitmousePos;
     public Vector3 unitappliedPosition;
     public bool unmoveable;
-    protected Vector3 posa;
     protected bool cursorOnObj = false;
+    protected string chInfo;
 
     // Start is called before the first frame update
     void Start()
     {
+        posa = transform.position;
         if (Menu.isSingle)
             isAI = true;
 
@@ -44,6 +42,7 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkDeath();
     }
     
 
@@ -55,7 +54,7 @@ public abstract class Character : MonoBehaviour
     public void updateUnitPosition()  //updates the position of the characters based on the keys the playr is pressing
     {
         currentLoc = transform.position;
-        if (timesmoved == possiblemovement)
+        if (timesmoved == mov)
         {
             unmoveable = true;
         }
@@ -80,7 +79,9 @@ public abstract class Character : MonoBehaviour
             StartCoroutine(MovePlayer(Vector3.right));
         }
 
-        Debug.Log($"TimesMoved: {timesmoved}");
+        if (timesmoved == mov)
+            cursorOnObj = false;
+
     }
 
     private IEnumerator MovePlayer(Vector3 direction)
@@ -108,6 +109,10 @@ public abstract class Character : MonoBehaviour
 
     protected void mouseInteraction()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            cursorOnObj = false;
+        }
         if (unmoveable == false)
         {
             unitmousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -120,10 +125,7 @@ public abstract class Character : MonoBehaviour
                     cursorOnObj = true;
                 }
             }
-            if (Input.GetMouseButtonDown(1))
-            {
-                cursorOnObj = false;
-            }
+            
             if (cursorOnObj)
             {
                 updateUnitPosition();
@@ -131,5 +133,33 @@ public abstract class Character : MonoBehaviour
             posa = transform.position;
         }
     }
+    public void updateToString()
+    {
+        chInfo = $"HP: {HP} / {maxHP}\nAtk: {atk}\nMOV: {mov - timesmoved} / {mov}";
+    }
+    public void Attack(Character enemy)
+    {
+        enemy.HP -= atk;
+    }
 
+    public void GetDamage()
+    {
+        HP -= 1;
+    }
+
+    private void checkDeath()
+    {
+        if (HP <= 0)
+            Destroy(this);
+    }
+    public void OnMouseEnter()
+    {
+        updateToString();
+        UIHandlerManager._instance.SetAndShowToolTip(chInfo);
+    }
+
+    public void OnMouseExit()
+    {
+        UIHandlerManager._instance.HideToolTip();
+    }
 }

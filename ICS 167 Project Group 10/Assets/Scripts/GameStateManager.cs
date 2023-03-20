@@ -241,6 +241,7 @@ public class GameStateManager : MonoBehaviour
         if (winner != null)
         {
             showWinScreen();
+            Debug.Log($"Winner!: {winner.name}");
         }
     }
 

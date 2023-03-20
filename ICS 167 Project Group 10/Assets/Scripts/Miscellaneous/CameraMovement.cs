@@ -48,26 +48,30 @@ public class CameraMovement : MonoBehaviour
 
     private void handleEdgeScrolling()
     {
-        // mouse touching the top 20% of the screen
-        if (Input.mousePosition.y >= Screen.height * 0.8f)
+        if (Input.mousePosition.x >= Screen.width * 0.154f && Input.mousePosition.x <= Screen.width * 0.846f)
         {
-            cameraPosition.y += cameraSpeed / 20; //new camera position changes
-            yEdgeMax = true; //mouse is touching the top part of the map
-        }
-        else
-            yEdgeMax = false; //mouse is not touching the top part of the map
+            // mouse touching the top 20% of the screen
+            if (Input.mousePosition.y >= Screen.height * 0.8f)
+            {
+                cameraPosition.y += cameraSpeed / 20; //new camera position changes
+                yEdgeMax = true; //mouse is touching the top part of the map
+            }
+            else
+                yEdgeMax = false; //mouse is not touching the top part of the map
 
-        // mouse touching the bottom 20% of the screen
-        if (Input.mousePosition.y <= Screen.height * 0.2f)
-        {
-            cameraPosition.y -= cameraSpeed / 20; //new camera position changes
-            yEdgeMin = true; //mouse is touching the bottom part of the map
+            // mouse touching the bottom 20% of the screen
+            if (Input.mousePosition.y <= Screen.height * 0.2f)
+            {
+                cameraPosition.y -= cameraSpeed / 20; //new camera position changes
+                yEdgeMin = true; //mouse is touching the bottom part of the map
+            }
+            else
+                yEdgeMin = false; //mouse is not touchnig the bottom part of the map
+
+            //update the current position to the new position
+            this.transform.position = Vector3.SmoothDamp(transform.position, cameraPosition, ref velocity, smoothSpeed);
         }
-        else
-            yEdgeMin = false; //mouse is not touchnig the bottom part of the map
         
-        //update the current position to the new position
-        this.transform.position = Vector3.SmoothDamp(transform.position, cameraPosition, ref velocity, smoothSpeed);
     }
 
     private void handleBorder()
