@@ -38,12 +38,12 @@ public class GameStateManager : MonoBehaviour
     //list of unit locations for player 1 and player2.
     //Player 1 - unitLoc[0-4], Player 2 - unitLoc[5-9]
     [SerializeField]
-    public static Vector3[] unitLoc { get; set; }
+    private Vector3[] unitLoc { get; set; }
 
     //list of unit references that are spawned in the game, for player 1 and player2.
     //Player 1 - unitList[0-4], Player 2 - unitList[5-9]
     [SerializeField]
-    public static GameObject[] unitList { get; set; }
+    private GameObject[] unitList { get; set; }
 
     //list of tile objects. The index of the nested array corresponds to the bottom left location of the tile.
     private GameObject[,] tileList { get; set; }
@@ -51,6 +51,7 @@ public class GameStateManager : MonoBehaviour
     private GameObject winScreen;
 
     private static GameStateManager _instance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -186,11 +187,6 @@ public class GameStateManager : MonoBehaviour
                 return;
             }
         }*/
-
-        for( int i = 0; i < 5; i++)
-        {
-            unitList[i].GetComponent<Character>().GetDamage();
-        }
     }
     
     
@@ -245,7 +241,6 @@ public class GameStateManager : MonoBehaviour
         if (winner != null)
         {
             showWinScreen();
-            Debug.Log($"Winner!: {winner.name}");
         }
     }
 
@@ -253,7 +248,6 @@ public class GameStateManager : MonoBehaviour
     {
         winScreen.SetActive(true);
         Time.timeScale = 1f;
-        
     }
 
 }
