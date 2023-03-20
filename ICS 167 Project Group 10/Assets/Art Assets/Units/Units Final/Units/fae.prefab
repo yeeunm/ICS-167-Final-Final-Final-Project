@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3673256074210846034}
   - component: {fileID: 3673256074210846037}
   - component: {fileID: 3673256074210846036}
+  - component: {fileID: -911448624679671813}
   m_Layer: 0
   m_Name: fae
   m_TagString: Untagged
@@ -97,12 +98,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c543df5a1dc8be1489a1b046b26d526c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  Cursorclicked: 0
   possiblemovement: 5
   timesmoved: 0
   unitmousePos: {x: 0, y: 0, z: 0}
   unitappliedPosition: {x: 0, y: 0, z: 0}
   unmoveable: 0
-  currentLoc: {x: 0, y: 0, z: 0}
-  isClicked: 0
+--- !u!61 &-911448624679671813
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3673256074210846039}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 3.65, y: 4.745}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 7.3, y: 9.49}
+    newSize: {x: 7.3, y: 9.49}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.3, y: 9.49}
+  m_EdgeRadius: 0
