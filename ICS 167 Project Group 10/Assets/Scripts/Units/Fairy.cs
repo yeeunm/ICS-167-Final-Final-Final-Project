@@ -25,6 +25,13 @@ public class Fairy : Character
     {
         mouseInteraction();
         updateToString();
+        checkDeath();
+        AdjustLayer();
+    }
+
+    public override void doAI()
+    {
+        base.doAI();
     }
 }
     

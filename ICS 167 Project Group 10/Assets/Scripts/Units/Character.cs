@@ -42,13 +42,39 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkDeath();
     }
     
 
     public virtual void doAI()
     {
+        AIMove();
         unmoveable = true;
+    }
+
+    private void AIMove()
+    {
+        for ( int i = 0; i < mov; i++)
+        {
+            int temp = UnityEngine.Random.Range(0, 4);
+            if( temp == 0)
+            {
+                StartCoroutine(MovePlayer(new Vector3(1,0 )));
+            }
+            else if (temp == 1)
+            {
+                StartCoroutine(MovePlayer(new Vector3(-1, 0)));
+            }
+            else if (temp == 2)
+            {
+                StartCoroutine(MovePlayer(new Vector3(0, 1)));
+            }
+            else
+            {
+                StartCoroutine(MovePlayer(new Vector3(0, -1)));
+            }
+
+        }
+            
     }
 
     public void updateUnitPosition()  //updates the position of the characters based on the keys the playr is pressing
@@ -84,7 +110,7 @@ public abstract class Character : MonoBehaviour
 
     }
 
-    private IEnumerator MovePlayer(Vector3 direction)
+    protected IEnumerator MovePlayer(Vector3 direction)
     {
         isMoving = true;
 
@@ -142,15 +168,28 @@ public abstract class Character : MonoBehaviour
         enemy.HP -= atk;
     }
 
-    public void GetDamage()
+    public void GetDamage(int dmg)
     {
-        HP -= 1;
+        HP -= dmg;
     }
 
-    private void checkDeath()
+    protected void Heal()
+    {
+        if (HP < maxHP)
+            HP++;
+    }
+
+
+    protected void AdjustLayer()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 25 - (int)posa.y;
+    }
+
+
+    protected void checkDeath()
     {
         if (HP <= 0)
-            Destroy(this);
+            Destroy(this.gameObject);
     }
     public void OnMouseEnter()
     {
